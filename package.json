@@ -24,6 +24,7 @@
     "libp2p-noise": "^3.0.0",
     "localhost": "^0.3.4",
     "os": "^0.1.1",
+    "peer-id": "^0.14.8",
     "uint8arrays": "^2.1.5"
   },
   "devDependencies": {

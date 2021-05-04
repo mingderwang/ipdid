@@ -9,7 +9,9 @@ const { encode, decode } = require("@ipld/dag-cbor");
 const { Key, MemoryDatastore } = require("interface-datastore");
 const MountStore = require("datastore-core").MountDatastore;
 const mds = new MemoryDatastore();
+const PeerId = require('peer-id')
 const m = new MountStore([
+
   {
     datastore: mds,
     prefix: new Key("cool"),
@@ -82,28 +84,15 @@ class InitCommand extends Command {
     const ipfs = await IPFS.create({
       libp2p: defaultOptions,
     });
-    // const cid = new CID('QmTp9VkYvnHyrqKQuFPiuZkiX9gPcqj6x5LJ1rmWuSySnL')
-    /* ipfs.dht.put.calledWith(uint8ArrayFromString("key"), uint8ArrayFromString("value"), {
-      ...defaultOptions,
-      timeout: 1000
-    })
-    */
-    const fileAdded = await ipfs.add({
-      path: "hello.txtix",
-      content: "Hello World 102",
-    });
 
-    console.log("Added file:", fileAdded.path, fileAdded.cid);
-
-    console.log("🐝 -> ");
-    setInterval(async () => {
-      try {
-        const peers = await ipfs.swarm.peers();
-        console.log(`The ipfs now has ${peers.length} peers.`);
-      } catch (err) {
-        console.log("An error occurred trying to check our peers:", err);
-      }
-    }, 2000);
+    const id = await ipfs.id()
+    const config = await ipfs.config.getAll()
+    const peerId = await PeerId.createFromPrivKey(config.Identity.PrivKey)
+    console.log("peerId 🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx")
+    console.log(id.id)
+    console.log(peerId.toB58String())
+    console.log(peerId.privKey)
+    console.log("🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx")
 
     const get = async (obj) => {
       const cid = new CID(obj);
