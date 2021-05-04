@@ -19,7 +19,7 @@ $ npm install -g ipdid
 $ ipdid COMMAND
 running command...
 $ ipdid (-v|--version|version)
-ipdid/0.0.3 darwin-arm64 node-v16.0.0
+ipdid/0.0.4 darwin-arm64 node-v16.0.0
 $ ipdid --help [COMMAND]
 USAGE
   $ ipdid COMMAND
@@ -35,6 +35,7 @@ USAGE
 * [`ipdid init`](#ipdid-init)
 * [`ipdid key`](#ipdid-key)
 * [`ipdid signer`](#ipdid-signer)
+* [`ipdid vc`](#ipdid-vc)
 
 ## `ipdid daemon`
 
@@ -52,25 +53,20 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/daemon.js](https://github.com/mingderwang/ipdid/blob/v0.0.3/src/commands/daemon.js)_
+_See code: [src/commands/daemon.js](https://github.com/mingderwang/ipdid/blob/v0.0.4/src/commands/daemon.js)_
 
 ## `ipdid did`
-
-create a new IPDID ipfs
 
 ```
 USAGE
   $ ipdid did
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -d, --ddoc=ddoc  DID document
+  -f, --force      force to register on ipfs block
 ```
 
-_See code: [src/commands/did.js](https://github.com/mingderwang/ipdid/blob/v0.0.3/src/commands/did.js)_
+_See code: [src/commands/did.js](https://github.com/mingderwang/ipdid/blob/v0.0.4/src/commands/did.js)_
 
 ## `ipdid help [COMMAND]`
 
@@ -107,7 +103,7 @@ DESCRIPTION
   show your DID in details
 ```
 
-_See code: [src/commands/id.js](https://github.com/mingderwang/ipdid/blob/v0.0.3/src/commands/id.js)_
+_See code: [src/commands/id.js](https://github.com/mingderwang/ipdid/blob/v0.0.4/src/commands/id.js)_
 
 ## `ipdid init`
 
@@ -125,7 +121,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/init.js](https://github.com/mingderwang/ipdid/blob/v0.0.3/src/commands/init.js)_
+_See code: [src/commands/init.js](https://github.com/mingderwang/ipdid/blob/v0.0.4/src/commands/init.js)_
 
 ## `ipdid key`
 
@@ -143,7 +139,7 @@ DESCRIPTION
   --long format
 ```
 
-_See code: [src/commands/key.js](https://github.com/mingderwang/ipdid/blob/v0.0.3/src/commands/key.js)_
+_See code: [src/commands/key.js](https://github.com/mingderwang/ipdid/blob/v0.0.4/src/commands/key.js)_
 
 ## `ipdid signer`
 
@@ -162,5 +158,25 @@ DESCRIPTION
   otherwise, create a new one.
 ```
 
-_See code: [src/commands/signer.js](https://github.com/mingderwang/ipdid/blob/v0.0.3/src/commands/signer.js)_
+_See code: [src/commands/signer.js](https://github.com/mingderwang/ipdid/blob/v0.0.4/src/commands/signer.js)_
+
+## `ipdid vc`
+
+create a verifiable claim for a did
+
+```
+USAGE
+  $ ipdid vc
+
+OPTIONS
+  -s, --school=school  [default: Example School] user's school
+  -w, --who=who        user's DID
+
+DESCRIPTION
+  example, ipdid vc -w 'did:ipdid:z6MkiYiav3GskEZWgv2ZkeeFt8kWqnWRahv9d7pb8X2iEDEv'
+  ...
+  return a claim DID for alumni of
+```
+
+_See code: [src/commands/vc.js](https://github.com/mingderwang/ipdid/blob/v0.0.4/src/commands/vc.js)_
 <!-- commandsstop -->
