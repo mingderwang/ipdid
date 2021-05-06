@@ -6,7 +6,7 @@ const uint8ArrayToString = require("uint8arrays/to-string");
 const Block = require("@ipld/block/defaults");
 const { encode, decode } = require("@ipld/dag-cbor");
 
-class InitCommand extends Command {
+class DIDCommand extends Command {
   static flags = {
     ddoc: flags.string({
       char: "dd",
@@ -24,12 +24,30 @@ class InitCommand extends Command {
       // allowNo: true
     }),
   };
+
+
+static stdin;
+
+  async init() {
+
+async function logChunks(readable) {
+  for await (const chunk of readable) {
+    console.log(chunk);
+    console.log(chunk.toString('utf-8'))
+    DIDCommand.stdin = chunk;
+  }
+}
+
+    await logChunks(process.stdin)
+  }
+
   async run() {
-    const { flags } = this.parse(InitCommand);
+    
+    const { flags } = this.parse(DIDCommand);
     console.log(flags);
     if (!flags.ddoc) {
-      console.error(`-dd or --ddoc is require`);
-      process.exit(1);
+      console.error(`-dd or --ddoc is required, or pipe from "ipdid signer" stdout`);
+      flags.ddoc = DIDCommand.stdin.toString('utf-8')
     }
 
     const ipfs = await IPFS.create({
@@ -58,7 +76,7 @@ class InitCommand extends Command {
     const saveJSON = async (diddoc) => {
       try {
         JSON.parse(diddoc);
-        console.log(diddoc);
+        console.log(JSON.parse(diddoc));
         return await save(diddoc);
       } catch (error) {
         const err = `DID doc must contains a JSON document: ${error}`;
@@ -76,25 +94,26 @@ class InitCommand extends Command {
 
         // js-ipfs uses an older CID value type so we must convert to string
         await ipfs.block.put(data, { cid: cid.toString() });
-        await ipfs.stop();
+        //await ipfs.stop(); // not sync with ipfs node yet.
         return cid;
       } catch (err) {
         console.log(`The ipfs get block fail.`);
-        await ipfs.stop();
+        //await ipfs.stop();
       }
     };
 
     const p = await saveJSON(flags.ddoc);
     const cid = p.toString();
-    console.log(`🙀 CID is ${cid}`);
+    console.log(`🙀 CID is did:ipdid:${cid}`);
     console.log(
       `👽 you can inspect it here 👽 ->  http://explore.ipld.io.ipns.localhost:8080/#/explore/${p.toString()}`
     );
+    console.log(`🙀 CTL-C to terminate. (after make sure DID document is sync to ipfs network)`);
     if(ipfs.isOnline()) {
-      ipfs.stop()
+      //ipfs.stop()
     }
-    process.exit(0)
+    //process.exit(0)
   }
 }
 
-module.exports = InitCommand;
+module.exports = DIDCommand;
