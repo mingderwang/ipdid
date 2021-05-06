@@ -34,7 +34,7 @@ class IdCommand extends Command {
     const getDID = (keyPair) => {
       const fingerprint = keyPair.fingerprint();
       const didipdid = "did:ipdid:" + fingerprint;
-      console.log(`🐝🐝🐝 your DID is ${didipdid}  🐝🐝🐝`);
+//      console.log(`🐝🐝🐝 your DID is ${didipdid}  🐝🐝🐝`);
 
       did = {
         "@context": "https://w3id.org/did/v1",
@@ -48,6 +48,7 @@ class IdCommand extends Command {
           },
         ],
       };
+/*
       this.log(
         `👻 your signer saved in ~/.ipdid_keystore.json is ${JSON.stringify(
           keyPair,
@@ -55,6 +56,7 @@ class IdCommand extends Command {
           2
         )}`
       );
+*/
       return did;
     };
 
@@ -65,7 +67,7 @@ class IdCommand extends Command {
         keyPair = await Ed25519VerificationKey2020.from(obj);
 
         let did = getDID(keyPair);
-        console.log(did);
+        console.log(JSON.stringify(did));
         return did;
       })
       .catch((error) => {
@@ -75,7 +77,7 @@ class IdCommand extends Command {
         console.error(error);
 
         let did = getDID(keyPair);
-        console.log(did);
+        console.log(JSON.stringify(did));
         return did;
       });
   }
