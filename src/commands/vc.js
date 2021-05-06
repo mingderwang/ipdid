@@ -110,7 +110,7 @@ class VCCommand extends Command {
         keyPair = await Ed25519VerificationKey2020.from(obj);
 
         let did = await getDID(keyPair);
-        console.log(did);
+        console.log(JSON.stringify(did));
         return did;
       })
       .catch(async (error) => {
@@ -120,7 +120,7 @@ class VCCommand extends Command {
         console.error(error);
 
         let did = await getDID(keyPair);
-        console.log(did);
+        console.log(JSON.stringify(did));
         return did;
       });
   }

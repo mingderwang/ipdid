@@ -3,6 +3,8 @@ const PeerId = require("peer-id");
 const path = require("path");
 const os = require("os");
 const jsonfile = require("jsonfile");
+const CID = require("cids");
+const multihashing = require("multihashing-async");
 
 const file = "./.ipdid_keystore.json";
 const filePath = path.resolve(os.homedir(), file);
@@ -31,10 +33,14 @@ class IdCommand extends Command {
 
     const tmpkeyPair = await Ed25519VerificationKey2020.generate();
 
-    const getDID = (keyPair) => {
+    const getDID = async (keyPair) => {
       const fingerprint = keyPair.fingerprint();
-      const didipdid = "did:ipdid:" + fingerprint;
-//      console.log(`🐝🐝🐝 your DID is ${didipdid}  🐝🐝🐝`);
+      const bytes = new TextEncoder("utf8").encode(fingerprint);
+      const hash = await multihashing(bytes, "sha2-256");
+      const cid = new CID(1, "dag-pb", hash);
+
+      const didipdid = "did:ipdid:" + cid.toString();
+      //console.log(`🐝🐝🐝 your DID is ${didipdid}  🐝🐝🐝`);
 
       did = {
         "@context": "https://w3id.org/did/v1",
@@ -48,7 +54,7 @@ class IdCommand extends Command {
           },
         ],
       };
-/*
+      /*
       this.log(
         `👻 your signer saved in ~/.ipdid_keystore.json is ${JSON.stringify(
           keyPair,
@@ -66,17 +72,17 @@ class IdCommand extends Command {
         // use old keyPair
         keyPair = await Ed25519VerificationKey2020.from(obj);
 
-        let did = getDID(keyPair);
+        let did = await getDID(keyPair);
         console.log(JSON.stringify(did));
         return did;
       })
-      .catch((error) => {
+      .catch(async (error) => {
         // create a new one
         keyPair = tmpkeyPair;
         writeJSON(tmpkeyPair);
         console.error(error);
 
-        let did = getDID(keyPair);
+        let did = await getDID(keyPair);
         console.log(JSON.stringify(did));
         return did;
       });
