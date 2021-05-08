@@ -6,7 +6,7 @@
   "bin": {
     "ipdid": "./bin/run"
   },
-  "bugs": "https://github.com/mingderwang/ipdid/issues",
+  "bugs": "https://github.com/IPDID/ipdid/issues",
   "dependencies": {
     "@digitalbazaar/ed25519-signature-2020": "^2.1.0",
     "@digitalbazaar/ed25519-verification-key-2020": "^2.1.1",
@@ -52,7 +52,7 @@
     "/oclif.manifest.json",
     "/src"
   ],
-  "homepage": "https://github.com/mingderwang/ipdid",
+  "homepage": "https://github.com/IPDID/ipdid",
   "keywords": [
     "oclif"
   ],
@@ -65,7 +65,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "mingderwang/ipdid",
+  "repository": "IPDID/ipdid",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
