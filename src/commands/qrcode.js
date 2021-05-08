@@ -1,4 +1,5 @@
-const { Command, flags } = require("@oclif/command");
+const { Command, flags } = require("@oclif/command")
+const qrcode = require('qrcode-terminal')
 
 class QRCommand extends Command {
   async init() {
@@ -17,7 +18,6 @@ class QRCommand extends Command {
   }
 
   async run() {
-    const qrcode = require('qrcode-terminal');
     const { flags } = this.parse(QRCommand);
     if (!flags.context) {
       if (QRCommand.stdin) {
