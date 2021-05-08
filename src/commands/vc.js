@@ -126,7 +126,7 @@ class VCCommand extends Command {
   }
 }
 
-VCCommand.description = `create a verifiable claim for a did
+VCCommand.description = `create a verifiable claim for a DID document
 example, ipdid vc -w 'did:ipdid:z6MkiYiav3GskEZWgv2ZkeeFt8kWqnWRahv9d7pb8X2iEDEv'
 ...
 return a claim DID for alumni of

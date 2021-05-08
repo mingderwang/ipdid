@@ -5,6 +5,7 @@ const os = require("os");
 const jsonfile = require("jsonfile");
 const CID = require("cids");
 const multihashing = require("multihashing-async");
+const qrcode = require('qrcode-terminal')
 
 const file = "./.ipdid_keystore.json";
 const filePath = path.resolve(os.homedir(), file);
@@ -21,8 +22,19 @@ const writeJSON = (obj) => {
     });
 };
 
-class IdCommand extends Command {
+class MyDIDCommand extends Command {
+
+  static flags = {
+    qrcode: flags.boolean({
+      char: "q",
+      default: false,
+      description: "generate and show DID QR code (default: false)",
+      // allowNo: true
+    }),
+  };
+
   async run() {
+    const { flags } = this.parse(MyDIDCommand);
     var keyPair = {};
     var did = {};
 
@@ -43,7 +55,11 @@ class IdCommand extends Command {
       const cid = new CID(1, "dag-pb", hash);
 
       const didipdid = "did:ipdid:" + cid.toString();
-      // console.log(`🐝🐝🐝 your DID is ${didipdid}  🐝🐝🐝`);
+      console.log(`${didipdid}`);
+      if (flags.qrcode) {
+        qrcode.generate(didipdid);
+        this.log(`🎉  genreating a QR-code on terminal for string: ${didipdid}`);
+      }
 
       did = {
         "@context": "https://w3id.org/did/v1",
@@ -76,15 +92,16 @@ class IdCommand extends Command {
         keyPair = await Ed25519VerificationKey2020.from(obj);
 
         let did = await getDID(keyPair);
-        console.log(JSON.stringify(did));
+        //console.log(JSON.stringify(did));
         return did;
       })
       .catch(async (error) => {
+        console.log('🦄 create a new one')
         // create a new one
         keyPair = tmpkeyPair;
         writeJSON(tmpkeyPair);
-        // console.error(error);
-        console.log('\n🦄 This is the first time to run this command on this machine.\n Create a new key pair. 🗝, please keep save on ~/.ipdid_keystore.json \n To register this DID, please run command: ipdid signer | ipdid did \n')
+        console.error(error);
+
         let did = await getDID(keyPair);
         console.log(JSON.stringify(did));
         return did;
@@ -92,22 +109,9 @@ class IdCommand extends Command {
   }
 }
 
-IdCommand.description = `create a singer's key pair and save on ~/.ipdid_keystore.json
+MyDIDCommand.description = `return your current DID
 ...
-return your DID for signer if ~/.ipdid_keystore.json exist
-otherwise, create a new one.
+show your current DID code 
 `;
 
-IdCommand.flags = {
-  //version: flags.version(),
-  help: flags.help(),
-  // run with --dir= or -d=
-  /*
-  dir: flags.string({
-    char: 'd',
-    default: process.cwd(),
-  }),
-  */
-};
-
-module.exports = IdCommand;
+module.exports = MyDIDCommand;

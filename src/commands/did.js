@@ -29,6 +29,7 @@ function postData(url, data) {
   .then(response => response.json()) // output JSON
 }
 
+
 class DIDCommand extends Command {
   static flags = {
     ddoc: flags.string({
@@ -150,8 +151,8 @@ const resolver = await ipfs.name.publish(name, nameDefaultOptions)
     const docObj = x.obj
     const cid = p.toString();
     const did = docObj.id.toString()
-    //console.log(`🙀 your CID is ${cid}`);
-    //console.log(`🙀 your DID is ${did}`);
+    console.log(`🐝 your CID is ${cid}`);
+    console.log(`🙀 your DID is ${did}`);
     qrcode.generate(did);
     this.log(`🎉  genreating a QR-code on terminal for string: ${did}`);
 
@@ -162,20 +163,26 @@ const resolver = await ipfs.name.publish(name, nameDefaultOptions)
    })
   .then(data => {
     //console.log(data)
-    //console.log(`🙀 your CID had been post to SKALE network, you can test with https://universal-resolver-driver-frankwang95174.vercel.app/1.0/identifiers/${did}`);
+    console.log(`🙀 your CID had been post to SKALE network, you can test with https://universal-resolver-driver-frankwang95174.vercel.app/1.0/identifiers/${did}`);
+    // hope exit work hurt
+    if(ipfs.isOnline()) {
+      ipfs.stop()
+    }
+    process.exit(0)
 })
   .catch(error => console.error(error))
   }
 
-    // console.log( `👽 you can inspect it here 👽 ->  https://explore.ipld.io/#/explore/${p.toString()}`);
+    console.log( `👽 you can inspect it here 👽 ->  https://explore.ipld.io/#/explore/${p.toString()}`);
     // console.log(`🙀 CTL-C to terminate. (after make sure DID document is sync to ipfs network)`);
 
 
-    if(ipfs.isOnline()) {
-      //ipfs.stop()
-    }
-    //process.exit(0)
   }
 }
+
+DIDCommand.description = `register a PDID to SKALE network and IPFS (IPLD) - use pipe only
+...
+you can pipe any DID document to generate and register a DID
+`;
 
 module.exports = DIDCommand;
