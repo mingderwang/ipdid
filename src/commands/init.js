@@ -10,6 +10,7 @@ const { Key, MemoryDatastore } = require("interface-datastore");
 const MountStore = require("datastore-core").MountDatastore;
 const mds = new MemoryDatastore();
 const PeerId = require('peer-id')
+const ipns = require('ipns')
 const m = new MountStore([
 
   {
@@ -80,7 +81,7 @@ class InitCommand extends Command {
     );
     console.log(uint8ArrayToString(res));
 
-    const defaultOptions = {}; // getDefaultConfig();
+    const defaultOptions = getDefaultConfig();
     const ipfs = await IPFS.create({
       libp2p: defaultOptions,
     });
@@ -88,6 +89,9 @@ class InitCommand extends Command {
     const id = await ipfs.id()
     const config = await ipfs.config.getAll()
     const peerId = await PeerId.createFromPrivKey(config.Identity.PrivKey)
+    const ipnsId = ipns.getLocalKey(peerId)
+    console.log("peerId 🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx")
+    console.log(ipnsId.toString())
     console.log("peerId 🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx")
     console.log(id.id)
     console.log(peerId.toB58String())

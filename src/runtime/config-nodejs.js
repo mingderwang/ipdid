@@ -35,6 +35,9 @@ module.exports = () => ({
     "/dns4/node2.preload.ipfs.io/tcp/443/wss/p2p/QmV7gnbW5VTcJ3oyM2Xk1rdFBJ3kTkvxc87UFGsun29STS",
     "/dns4/node3.preload.ipfs.io/tcp/443/wss/p2p/QmY7JB6MQXhxHvq7dBDh4HpbH29v4yE9JRadAVpndvzySN",
   ],
+  DHT: {
+    Enabled: true,
+  },
   Pubsub: {
     /** @type {'gossipsub'} */
     Router: "gossipsub",

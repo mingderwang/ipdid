@@ -3,8 +3,11 @@ const IPFS = require("ipfs");
 const CID = require("cids");
 const uint8ArrayFromString = require("uint8arrays/from-string");
 const uint8ArrayToString = require("uint8arrays/to-string");
-const Block = require("ipld-block");
+const Block = require("@ipld/block/defaults");
+const Block2 = require("ipld-block");
 const { encode, decode } = require("@ipld/dag-cbor");
+const multihashing = require('multihashing-async')
+const getDefaultConfig = require('../runtime/config-nodejs')
 
 class DIDCommand extends Command {
   static flags = {
@@ -56,9 +59,10 @@ async function logChunks(readable) {
       }
     }
 
-    console.log(flags.ddoc);
+    const defaultOptions = getDefaultConfig();
+    //console.log(flags.ddoc);
     const ipfs = await IPFS.create({
-      libp2p: {},
+      libp2p: {} //defaultOptions,
     });
 
 
@@ -82,23 +86,36 @@ async function logChunks(readable) {
       }
     };
 
-    // input obj is a json Object
+    // obj is a json Object
     const save = async (obj) => {
-      var cid;
       try {
         // obj is a string of JSON object
-        const encoder = new TextEncoder('utf8')
-        const docId = JSON.parse(obj).id
-        const old = docId.split(':')[2]
-        const cid = new CID(old)
-        const block = new Block(encoder.encode(JSON.stringify(obj)), cid)
+        const block = Block.encoder(obj, "dag-cbor");
+        const data = block.encode();
+
+const multihash = await multihashing(data, 'sha2-256')
+const cid = new CID(1, 'dag-cbor', multihash)
 
         // js-ipfs uses an older CID value type so we must convert to string
-        const node = await ipfs.block.put(block);
-        console.log(node)
+        const node = await ipfs.block.put(data, {cid: cid.toString()});
+        //console.log(node)
         const result = await ipfs.block.get(node.cid);
-        console.log(result.data)
+        //console.log(result.data)
         //await ipfs.stop(); // not sync with ipfs node yet.
+
+ const name = '/ipfs/QmaMLRsvmDRCezZe2iebcKWtEzKNjBaQfwcu7mcpdm8eY2'
+    const value = '/ipns/QmVMxjouRQCA2QykL5Rc77DvjfaX6m8NL6RyHXRTaZ9iya'
+    const nameDefaultOptions = {
+      resolve: true,
+      lifetime: '24h',
+      key: 'self',
+      ttl: '',
+      timeout: undefined
+    }
+const resolver = await ipfs.name.publish(name, nameDefaultOptions)
+//const test = await ipfs.name.resolve(value)
+//console.log(test)
+
         return cid;
       } catch (err) {
         console.log(`The ipfs up block fail. error: ${err}`);
@@ -107,9 +124,9 @@ async function logChunks(readable) {
     };
 
     const p = await saveJSON(flags.ddoc);
-    console.log(p)
+    //console.log(p)
     const cid = p.toString();
-    console.log(`🙀 new DID is did:ipdid:${cid}`);
+    console.log(`🙀 your CID is ${cid}`);
     console.log(
       `👽 you can inspect it here 👽 ->  http://explore.ipld.io.ipns.localhost:8080/#/explore/${p.toString()}`
     );
