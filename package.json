@@ -1,7 +1,7 @@
 {
   "name": "ipdid",
   "description": "An IPDID Node CLI",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Ming-der Wang <mingderwang@gmail.com>",
   "bin": {
     "ipdid": "./bin/run"

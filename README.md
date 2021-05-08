@@ -19,7 +19,7 @@ $ npm install -g ipdid
 $ ipdid COMMAND
 running command...
 $ ipdid (-v|--version|version)
-ipdid/0.0.5 darwin-arm64 node-v16.0.0
+ipdid/0.0.6 darwin-arm64 node-v16.0.0
 $ ipdid --help [COMMAND]
 USAGE
   $ ipdid COMMAND
@@ -33,7 +33,7 @@ USAGE
 * [`ipdid help [COMMAND]`](#ipdid-help-command)
 * [`ipdid id`](#ipdid-id)
 * [`ipdid init`](#ipdid-init)
-* [`ipdid key`](#ipdid-key)
+* [`ipdid qrcode`](#ipdid-qrcode)
 * [`ipdid signer`](#ipdid-signer)
 * [`ipdid vc`](#ipdid-vc)
 
@@ -53,7 +53,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/daemon.js](https://github.com/mingderwang/ipdid/blob/v0.0.5/src/commands/daemon.js)_
+_See code: [src/commands/daemon.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/daemon.js)_
 
 ## `ipdid did`
 
@@ -66,7 +66,7 @@ OPTIONS
   -f, --force      force to register on ipfs block
 ```
 
-_See code: [src/commands/did.js](https://github.com/mingderwang/ipdid/blob/v0.0.5/src/commands/did.js)_
+_See code: [src/commands/did.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/did.js)_
 
 ## `ipdid help [COMMAND]`
 
@@ -103,7 +103,7 @@ DESCRIPTION
   show your DID in details
 ```
 
-_See code: [src/commands/id.js](https://github.com/mingderwang/ipdid/blob/v0.0.5/src/commands/id.js)_
+_See code: [src/commands/id.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/id.js)_
 
 ## `ipdid init`
 
@@ -121,25 +121,25 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/init.js](https://github.com/mingderwang/ipdid/blob/v0.0.5/src/commands/init.js)_
+_See code: [src/commands/init.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/init.js)_
 
-## `ipdid key`
+## `ipdid qrcode`
 
-show your DID key pair
+to generate your DID QR-code
 
 ```
 USAGE
-  $ ipdid key
+  $ ipdid qrcode
 
 OPTIONS
-  -n, --name=name  name to print
+  -c, --context=context  the context for generating a QR-code
 
 DESCRIPTION
   ...
-  --long format
+  --context string (default for testing: '0x8587eA108898749538372Cd3Df459870C4a1A56F')
 ```
 
-_See code: [src/commands/key.js](https://github.com/mingderwang/ipdid/blob/v0.0.5/src/commands/key.js)_
+_See code: [src/commands/qrcode.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/qrcode.js)_
 
 ## `ipdid signer`
 
@@ -158,7 +158,7 @@ DESCRIPTION
   otherwise, create a new one.
 ```
 
-_See code: [src/commands/signer.js](https://github.com/mingderwang/ipdid/blob/v0.0.5/src/commands/signer.js)_
+_See code: [src/commands/signer.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/signer.js)_
 
 ## `ipdid vc`
 
@@ -178,5 +178,5 @@ DESCRIPTION
   return a claim DID for alumni of
 ```
 
-_See code: [src/commands/vc.js](https://github.com/mingderwang/ipdid/blob/v0.0.5/src/commands/vc.js)_
+_See code: [src/commands/vc.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/vc.js)_
 <!-- commandsstop -->
