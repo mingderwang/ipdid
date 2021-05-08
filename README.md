@@ -19,7 +19,7 @@ $ npm install -g ipdid
 $ ipdid COMMAND
 running command...
 $ ipdid (-v|--version|version)
-ipdid/0.0.6 darwin-arm64 node-v16.0.0
+ipdid/0.1.0 darwin-arm64 node-v16.0.0
 $ ipdid --help [COMMAND]
 USAGE
   $ ipdid COMMAND
@@ -28,34 +28,17 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`ipdid daemon`](#ipdid-daemon)
 * [`ipdid did`](#ipdid-did)
 * [`ipdid help [COMMAND]`](#ipdid-help-command)
-* [`ipdid id`](#ipdid-id)
 * [`ipdid init`](#ipdid-init)
+* [`ipdid mydid`](#ipdid-mydid)
 * [`ipdid qrcode`](#ipdid-qrcode)
 * [`ipdid signer`](#ipdid-signer)
 * [`ipdid vc`](#ipdid-vc)
 
-## `ipdid daemon`
-
-start a IPDID node as daemon
-
-```
-USAGE
-  $ ipdid daemon
-
-OPTIONS
-  -l, --log=log  show logs
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
-```
-
-_See code: [src/commands/daemon.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/daemon.js)_
-
 ## `ipdid did`
+
+register a PDID to SKALE network and IPFS (IPLD) - use pipe only
 
 ```
 USAGE
@@ -64,9 +47,13 @@ USAGE
 OPTIONS
   -d, --ddoc=ddoc  DID document
   -f, --force      force to register on ipfs block
+
+DESCRIPTION
+  ...
+  you can pipe any DID document to generate and register a DID
 ```
 
-_See code: [src/commands/did.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/did.js)_
+_See code: [src/commands/did.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/did.js)_
 
 ## `ipdid help [COMMAND]`
 
@@ -85,29 +72,9 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
-## `ipdid id`
-
-show your DID
-
-```
-USAGE
-  $ ipdid id
-
-OPTIONS
-  -d, --dir=dir  [default: /Users/mingderwang/src/20210426-ipdid]
-  --help         show CLI help
-  --version      show CLI version
-
-DESCRIPTION
-  ...
-  show your DID in details
-```
-
-_See code: [src/commands/id.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/id.js)_
-
 ## `ipdid init`
 
-create a new IPDID ipfs
+create a new IPDID ipfs (deprecated)
 
 ```
 USAGE
@@ -118,14 +85,32 @@ OPTIONS
 
 DESCRIPTION
   ...
-  Extra documentation goes here
+  don't use this init command any more.
 ```
 
-_See code: [src/commands/init.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/init.js)_
+_See code: [src/commands/init.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/init.js)_
+
+## `ipdid mydid`
+
+return your current DID
+
+```
+USAGE
+  $ ipdid mydid
+
+OPTIONS
+  -q, --qrcode  generate and show DID QR code (default: false)
+
+DESCRIPTION
+  ...
+  show your current DID code
+```
+
+_See code: [src/commands/mydid.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/mydid.js)_
 
 ## `ipdid qrcode`
 
-to generate your DID QR-code
+to generate a QR-code from your context or stdin
 
 ```
 USAGE
@@ -139,7 +124,7 @@ DESCRIPTION
   --context string (default for testing: '0x8587eA108898749538372Cd3Df459870C4a1A56F')
 ```
 
-_See code: [src/commands/qrcode.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/qrcode.js)_
+_See code: [src/commands/qrcode.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/qrcode.js)_
 
 ## `ipdid signer`
 
@@ -158,11 +143,11 @@ DESCRIPTION
   otherwise, create a new one.
 ```
 
-_See code: [src/commands/signer.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/signer.js)_
+_See code: [src/commands/signer.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/signer.js)_
 
 ## `ipdid vc`
 
-create a verifiable claim for a did
+create a verifiable claim for a DID document
 
 ```
 USAGE
@@ -178,5 +163,5 @@ DESCRIPTION
   return a claim DID for alumni of
 ```
 
-_See code: [src/commands/vc.js](https://github.com/mingderwang/ipdid/blob/v0.0.6/src/commands/vc.js)_
+_See code: [src/commands/vc.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/vc.js)_
 <!-- commandsstop -->
