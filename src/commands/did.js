@@ -1,15 +1,15 @@
 const { Command, flags } = require("@oclif/command");
 const IPFS = require("ipfs");
 const CID = require("cids");
-const uint8ArrayFromString = require("uint8arrays/from-string");
 const uint8ArrayToString = require("uint8arrays/to-string");
-const Block = require("@ipld/block/defaults");
-const Block2 = require("ipld-block");
-const { encode, decode } = require("@ipld/dag-cbor");
+const Block = require('multiformats/block')
+const codec = require("@ipld/dag-cbor");
 const multihashing = require('multihashing-async')
 const getDefaultConfig = require('../runtime/config-nodejs')
 const fetch = require('node-fetch')
 const qrcode = require('qrcode-terminal')
+const { hasher } = require('multiformats')
+const utf8ArrayFromString = require('uint8arrays/from-string')
 
 function postData(url, data) {
   // Default options are marked with *
@@ -90,7 +90,7 @@ async function logChunks(readable) {
     const get = async (obj) => {
       const cid = new CID(obj);
       const block = await ipfs.block.get(cid);
-      const data = decode(block.data);
+      const data = codec.decode(block.data);
       return data;
     };
 
@@ -113,21 +113,24 @@ async function logChunks(readable) {
     const save = async (obj) => {
       try {
         // obj is a string of JSON object
-        const block = Block.encoder(obj, "dag-cbor");
-        const data = block.encode();
+        //console.log(typeof obj === 'string')
+ //       const data = block.encode();
+ const bytes = utf8ArrayFromString(obj)
 
-const multihash = await multihashing(data, 'sha2-256')
-const cid = new CID(1, 'dag-cbor', multihash)
+const multihash = await multihashing(bytes, 'sha2-256')
+const cid = new CID(0, 'dag-pb', multihash)
 
         // js-ipfs uses an older CID value type so we must convert to string
-        const node = await ipfs.block.put(data, {cid: cid.toString()});
-        //console.log(node)
+        const node = await ipfs.block.put(bytes, {cid: cid.toString()});
+        console.log(node.cid)
+        console.log('🇯🇵')
         const result = await ipfs.block.get(node.cid);
-        //console.log(result.data)
+        console.log(result)
+        console.log('🇯🇵')
         //await ipfs.stop(); // not sync with ipfs node yet.
 
  const name = '/ipfs/QmaMLRsvmDRCezZe2iebcKWtEzKNjBaQfwcu7mcpdm8eY2'
-    const value = '/ipns/QmVMxjouRQCA2QykL5Rc77DvjfaX6m8NL6RyHXRTaZ9iya'
+    //const value = '/ipns/QmVMxjouRQCA2QykL5Rc77DvjfaX6m8NL6RyHXRTaZ9iya'
     const nameDefaultOptions = {
       resolve: true,
       lifetime: '24h',
@@ -173,7 +176,7 @@ const resolver = await ipfs.name.publish(name, nameDefaultOptions)
   .catch(error => console.error(error))
   }
 
-    console.log( `👽 you can inspect it here 👽 ->  https://explore.ipld.io/#/explore/${p.toString()}`);
+    console.log( `👽 you can inspect it here 👽 ->  https://ipfs.infura.io:5001/api/v0/block/get?arg=${p.toString()}`);
     // console.log(`🙀 CTL-C to terminate. (after make sure DID document is sync to ipfs network)`);
 
 

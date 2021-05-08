@@ -84,7 +84,7 @@ class VCCommand extends Command {
       const omg = JSON.stringify(flags);
       const bytes = new TextEncoder("utf8").encode(omg);
       const hash = await multihashing(bytes, "sha2-256");
-      const cid = new CID(1, "dag-pb", hash);
+      const cid = new CID(0, "dag-pb", hash);
 
       const credential = {
         "@context": [

@@ -4,8 +4,8 @@ const IPFS = require("ipfs");
 const CID = require("cids");
 const uint8ArrayFromString = require("uint8arrays/from-string");
 const uint8ArrayToString = require("uint8arrays/to-string");
-const Block = require("@ipld/block/defaults");
-const { encode, decode } = require("@ipld/dag-cbor");
+const Block = require('multiformats/block')
+const { encode, decode } = require("@ipld/dag-pb");
 const { Key, MemoryDatastore } = require("interface-datastore");
 const MountStore = require("datastore-core").MountDatastore;
 const mds = new MemoryDatastore();
@@ -106,7 +106,7 @@ class InitCommand extends Command {
     };
 
     const save = async (obj) => {
-      const block = Block.encoder(obj, "dag-cbor");
+      const block = Block.encoder(obj, "dag-pb");
       const data = block.encode();
       const cid = await block.cid();
 

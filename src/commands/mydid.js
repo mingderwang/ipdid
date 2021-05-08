@@ -52,7 +52,7 @@ class MyDIDCommand extends Command {
       const fingerprint = keyPair.fingerprint();
       const bytes = new TextEncoder("utf8").encode(fingerprint);
       const hash = await multihashing(bytes, "sha2-256");
-      const cid = new CID(1, "dag-pb", hash);
+      const cid = new CID(0, "dag-pb", hash);
 
       const didipdid = "did:ipdid:" + cid.toString();
       console.log(`${didipdid}`);
