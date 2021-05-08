@@ -4140,22 +4140,6 @@ ipld@^0.28.0:
     multicodec "^2.0.0"
     typical "^6.0.0"
 
-ipns@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/ipns/-/ipns-0.11.0.tgz#47cfd0470ab73b864ff0401d924fa1f5a10925b7"
-  integrity sha512-HAXwroC6WGzat41DKtF+az3hGGoE3mHRNaFAeZnEwSy/m9zhdjjeDddNcGIG8mKu/E2mo4FlMJSFT3chaBcaMw==
-  dependencies:
-    debug "^4.2.0"
-    err-code "^3.0.1"
-    interface-datastore "^4.0.0"
-    libp2p-crypto "^0.19.0"
-    multibase "^4.0.2"
-    multihashes "^4.0.2"
-    peer-id "^0.14.2"
-    protobufjs "^6.10.2"
-    timestamp-nano "^1.0.0"
-    uint8arrays "^2.0.5"
-
 ipns@^0.8.0:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/ipns/-/ipns-0.8.2.tgz#4ac45cb08fc24ad587fb757bd88e979c01798a52"

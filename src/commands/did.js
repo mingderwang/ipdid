@@ -8,6 +8,25 @@ const Block2 = require("ipld-block");
 const { encode, decode } = require("@ipld/dag-cbor");
 const multihashing = require('multihashing-async')
 const getDefaultConfig = require('../runtime/config-nodejs')
+const fetch = require('node-fetch')
+
+function postData(url, data) {
+  // Default options are marked with *
+  return fetch(url, {
+    body: JSON.stringify(data), // must match 'Content-Type' header
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, same-origin, *omit
+    headers: {
+      'user-agent': 'Mozilla/4.0 MDN Example',
+      'content-type': 'application/json'
+    },
+    method: 'POST',
+    mode: 'cors', // no-cors, cors, *same-origin
+    redirect: 'follow', // manual, *follow, error
+    referrer: 'no-referrer', // *client, no-referrer
+  })
+  .then(response => response.json()) // output JSON
+}
 
 class DIDCommand extends Command {
   static flags = {
@@ -66,23 +85,25 @@ async function logChunks(readable) {
     });
 
 
-/*
     const get = async (obj) => {
       const cid = new CID(obj);
       const block = await ipfs.block.get(cid);
       const data = decode(block.data);
       return data;
     };
-*/
 
     const saveJSON = async (diddoc) => {
       try {
         console.log(JSON.parse(diddoc));
-        return await save(diddoc);
+        const cid = await save(diddoc)
+        const obj = JSON.parse(diddoc)
+        return { cid: cid, obj: obj } 
       } catch (error) {
         const err = `DID doc must contains a JSON document: ${error}`;
         console.log(err);
-        return new CID("error: ddoc not an object in JSON");
+        const errorCID =  new CID("error: ddoc not an object in JSON") 
+        const empty = {}
+        return { cid: errorCID, obj: empty }
       }
     };
 
@@ -123,14 +144,38 @@ const resolver = await ipfs.name.publish(name, nameDefaultOptions)
       }
     };
 
-    const p = await saveJSON(flags.ddoc);
-    //console.log(p)
+    const x = await saveJSON(flags.ddoc);
+    const p = x.cid
+    const docObj = x.obj
+/*
+    console.log(x)
+    console.log(p)
+    console.log(docObj)
+*/
+
     const cid = p.toString();
+    const did = docObj.id.toString()
     console.log(`🙀 your CID is ${cid}`);
+    console.log(`🙀 your DID is ${did}`);
+
+    if (cid && did) {
+    postData('https://universal-resolver-driver-frankwang95174.vercel.app/did', {
+    "did": did,
+    "didDocument": cid 
+   })
+  .then(data => {
+    console.log(data)
+    console.log(`🙀 your CID had been post to SKALE network, you can test with https://universal-resolver-driver-frankwang95174.vercel.app/1.0/identifiers/${did}`);
+})
+  .catch(error => console.error(error))
+  }
+
     console.log(
-      `👽 you can inspect it here 👽 ->  http://explore.ipld.io.ipns.localhost:8080/#/explore/${p.toString()}`
+      `👽 you can inspect it here 👽 ->  https://explore.ipld.io/#/explore/${p.toString()}`
     );
     console.log(`🙀 CTL-C to terminate. (after make sure DID document is sync to ipfs network)`);
+
+
     if(ipfs.isOnline()) {
       //ipfs.stop()
     }

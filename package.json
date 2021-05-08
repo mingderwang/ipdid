@@ -27,6 +27,7 @@
     "moment": "^2.29.1",
     "multiformats": "^8.0.3",
     "multihashing-async": "^2.1.2",
+    "node-fetch": "^2.6.1",
     "os": "^0.1.1",
     "peer-id": "^0.14.8",
     "uint8arrays": "^2.1.5"
