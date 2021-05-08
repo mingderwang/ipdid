@@ -133,9 +133,9 @@ class InitCommand extends Command {
   }
 }
 
-InitCommand.description = `create a new IPDID ipfs
+InitCommand.description = `create a new IPDID ipfs (deprecated)
 ...
-Extra documentation goes here
+don't use this init command any more.
 `;
 
 InitCommand.flags = {

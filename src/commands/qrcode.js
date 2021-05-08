@@ -2,11 +2,10 @@ const { Command, flags } = require("@oclif/command")
 const qrcode = require('qrcode-terminal')
 
 class QRCommand extends Command {
+
   async init() {
     async function logChunks(readable) {
       for await (const chunk of readable) {
-        console.log(chunk)
-        console.log(chunk.toString('utf-8'))
         QRCommand.stdin = chunk
       }
     }
@@ -19,6 +18,7 @@ class QRCommand extends Command {
 
   async run() {
     const { flags } = this.parse(QRCommand);
+    console.log(flags)
     if (!flags.context) {
       if (QRCommand.stdin) {
         flags.context = QRCommand.stdin.toString('utf-8')
@@ -33,13 +33,16 @@ class QRCommand extends Command {
   }
 }
 
-QRCommand.description = `to generate your DID QR-code
+QRCommand.description = `to generate a QR-code from your context or stdin
 ...
 --context string (default for testing: '0x8587eA108898749538372Cd3Df459870C4a1A56F')
 `;
 
 QRCommand.flags = {
-  context: flags.string({ char: "c", description: "the context for generating a QR-code" }),
+  context: flags.string({
+     char: "c", 
+     description: "the context for generating a QR-code" 
+   }),
 };
 
 module.exports = QRCommand;
