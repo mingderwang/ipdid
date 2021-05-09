@@ -19,7 +19,7 @@ $ npm install -g ipdid
 $ ipdid COMMAND
 running command...
 $ ipdid (-v|--version|version)
-ipdid/0.1.0 darwin-arm64 node-v16.0.0
+ipdid/0.1.1 darwin-arm64 node-v16.0.0
 $ ipdid --help [COMMAND]
 USAGE
   $ ipdid COMMAND
@@ -53,7 +53,7 @@ DESCRIPTION
   you can pipe any DID document to generate and register a DID
 ```
 
-_See code: [src/commands/did.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/did.js)_
+_See code: [src/commands/did.js](https://github.com/IPDID/ipdid/blob/v0.1.1/src/commands/did.js)_
 
 ## `ipdid help [COMMAND]`
 
@@ -88,7 +88,7 @@ DESCRIPTION
   don't use this init command any more.
 ```
 
-_See code: [src/commands/init.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/init.js)_
+_See code: [src/commands/init.js](https://github.com/IPDID/ipdid/blob/v0.1.1/src/commands/init.js)_
 
 ## `ipdid mydid`
 
@@ -106,7 +106,7 @@ DESCRIPTION
   show your current DID code
 ```
 
-_See code: [src/commands/mydid.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/mydid.js)_
+_See code: [src/commands/mydid.js](https://github.com/IPDID/ipdid/blob/v0.1.1/src/commands/mydid.js)_
 
 ## `ipdid qrcode`
 
@@ -121,10 +121,12 @@ OPTIONS
 
 DESCRIPTION
   ...
-  --context string (default for testing: '0x8587eA108898749538372Cd3Df459870C4a1A56F')
+  --context string 
+  for example: ipdid qrcode -c 'test string' 
+  or: echo 'test string' | ipdid qrcode
 ```
 
-_See code: [src/commands/qrcode.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/qrcode.js)_
+_See code: [src/commands/qrcode.js](https://github.com/IPDID/ipdid/blob/v0.1.1/src/commands/qrcode.js)_
 
 ## `ipdid signer`
 
@@ -143,7 +145,7 @@ DESCRIPTION
   otherwise, create a new one.
 ```
 
-_See code: [src/commands/signer.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/signer.js)_
+_See code: [src/commands/signer.js](https://github.com/IPDID/ipdid/blob/v0.1.1/src/commands/signer.js)_
 
 ## `ipdid vc`
 
@@ -163,5 +165,5 @@ DESCRIPTION
   return a claim DID for alumni of
 ```
 
-_See code: [src/commands/vc.js](https://github.com/mingderwang/ipdid/blob/v0.1.0/src/commands/vc.js)_
+_See code: [src/commands/vc.js](https://github.com/IPDID/ipdid/blob/v0.1.1/src/commands/vc.js)_
 <!-- commandsstop -->

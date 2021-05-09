@@ -1,7 +1,7 @@
 {
   "name": "ipdid",
   "description": "IPDID cli - Need to run with a ipfs node. (http://ipfs.io)",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Ming-der Wang <mingderwang@gmail.com>",
   "bin": {
     "ipdid": "./bin/run"
