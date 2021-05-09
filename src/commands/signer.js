@@ -15,9 +15,9 @@ const writeJSON = (obj) => {
     .then((res) => {
       //    console.log('Write  ~/.ipdid_keystore.json complete')
     })
-    .catch((error) => { 
-      console.error(error)
-      console.log('🦄 check ~/.ipdid_keystore.json file permission')
+    .catch((error) => {
+      console.error(error);
+      console.log("🦄 check ~/.ipdid_keystore.json file permission");
     });
 };
 
@@ -84,7 +84,9 @@ class IdCommand extends Command {
         keyPair = tmpkeyPair;
         writeJSON(tmpkeyPair);
         // console.error(error);
-        console.log('\n🦄 This is the first time to run this command on this machine.\n Create a new key pair. 🗝, please keep save on ~/.ipdid_keystore.json \n To register this DID, please run command: ipdid signer | ipdid did \n')
+        console.log(
+          "\n🦄 This is the first time to run this command on this machine.\n Create a new key pair. 🗝, please keep save on ~/.ipdid_keystore.json \n To register this DID, please run command: ipdid signer | ipdid did \n"
+        );
         let did = await getDID(keyPair);
         console.log(JSON.stringify(did));
         return did;

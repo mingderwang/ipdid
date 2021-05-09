@@ -5,7 +5,7 @@ const os = require("os");
 const jsonfile = require("jsonfile");
 const CID = require("cids");
 const multihashing = require("multihashing-async");
-const qrcode = require('qrcode-terminal')
+const qrcode = require("qrcode-terminal");
 
 const file = "./.ipdid_keystore.json";
 const filePath = path.resolve(os.homedir(), file);
@@ -16,14 +16,13 @@ const writeJSON = (obj) => {
     .then((res) => {
       //    console.log('Write  ~/.ipdid_keystore.json complete')
     })
-    .catch((error) => { 
-      console.error(error)
-      console.log('🦄 check ~/.ipdid_keystore.json file permission')
+    .catch((error) => {
+      console.error(error);
+      console.log("🦄 check ~/.ipdid_keystore.json file permission");
     });
 };
 
 class MyDIDCommand extends Command {
-
   static flags = {
     qrcode: flags.boolean({
       char: "q",
@@ -58,7 +57,9 @@ class MyDIDCommand extends Command {
       console.log(`${didipdid}`);
       if (flags.qrcode) {
         qrcode.generate(didipdid);
-        this.log(`🎉  genreating a QR-code on terminal for string: ${didipdid}`);
+        this.log(
+          `🎉  genreating a QR-code on terminal for string: ${didipdid}`
+        );
       }
 
       did = {
@@ -96,11 +97,13 @@ class MyDIDCommand extends Command {
         return did;
       })
       .catch(async (error) => {
-        console.log('🦄 create a new one')
+        console.log(
+          "\n🦄 This is the first time to use ipdid, the system creates a new DID for you.\n"
+        );
         // create a new one
         keyPair = tmpkeyPair;
         writeJSON(tmpkeyPair);
-        console.error(error);
+        // console.error(error);
 
         let did = await getDID(keyPair);
         console.log(JSON.stringify(did));

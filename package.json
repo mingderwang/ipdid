@@ -1,6 +1,6 @@
 {
   "name": "ipdid",
-  "description": "An IPDID Node CLI",
+  "description": "IPDID cli - Need to run with a ipfs node. (http://ipfs.io)",
   "version": "0.1.0",
   "author": "Ming-der Wang <mingderwang@gmail.com>",
   "bin": {
@@ -11,7 +11,7 @@
     "@digitalbazaar/ed25519-signature-2020": "^2.1.0",
     "@digitalbazaar/ed25519-verification-key-2020": "^2.1.1",
     "@ipld/block": "^6.0.4",
-    "@ipld/dag-cbor": "^5.0.0",
+    "@ipld/dag-pb": "^1.1.2",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",

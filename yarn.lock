@@ -421,12 +421,11 @@
     "@ipld/is-circular" "^1.0.3"
     borc "^2.1.2"
 
-"@ipld/dag-cbor@^5.0.0":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@ipld/dag-cbor/-/dag-cbor-5.0.2.tgz#ce43d1bb127beb783f7524782ced0c28812689fa"
-  integrity sha512-D91xNPZFsl4PHeCg3NJAkHg9f0n28yrT+mwbnkX9x+GaoGSN0F4qdEobicpKdTmUdQGTr49023v/xPDaBdJa+g==
+"@ipld/dag-pb@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@ipld/dag-pb/-/dag-pb-1.1.2.tgz#0f5953a3132382e10cc2669b3ff25b9fbeaf8d7a"
+  integrity sha512-t2968Wuss+sErvHih4tl5jj2dV/2Hc8yE7JXRnGIBtW0b8+sJ/+w0Feaf4EsQHZp8oLvunjXlDG0KGi7aGkJXg==
   dependencies:
-    cborg "^1.2.1"
     multiformats "^8.0.3"
 
 "@ipld/is-circular@^1.0.3":
@@ -1457,11 +1456,6 @@ cbor@^6.0.1:
   dependencies:
     bignumber.js "^9.0.1"
     nofilter "^1.0.4"
-
-cborg@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/cborg/-/cborg-1.2.1.tgz#5d8a7a5a360d13ee62e07928d9ae0c7b7e4983a2"
-  integrity sha512-eA14hhjU6a9QxCvam/hdRl5LMLfqB1YGG/VA5woI5LxVDjh7kDiRxFp/uSfYQjAGVuk2BvSjx7L60u+B1k3gGw==
 
 chai-checkmark@^1.0.1:
   version "1.0.1"

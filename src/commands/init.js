@@ -4,15 +4,14 @@ const IPFS = require("ipfs");
 const CID = require("cids");
 const uint8ArrayFromString = require("uint8arrays/from-string");
 const uint8ArrayToString = require("uint8arrays/to-string");
-const Block = require('multiformats/block')
+const Block = require("multiformats/block");
 const { encode, decode } = require("@ipld/dag-pb");
 const { Key, MemoryDatastore } = require("interface-datastore");
 const MountStore = require("datastore-core").MountDatastore;
 const mds = new MemoryDatastore();
-const PeerId = require('peer-id')
-const ipns = require('ipns')
+const PeerId = require("peer-id");
+const ipns = require("ipns");
 const m = new MountStore([
-
   {
     datastore: mds,
     prefix: new Key("cool"),
@@ -86,17 +85,17 @@ class InitCommand extends Command {
       libp2p: defaultOptions,
     });
 
-    const id = await ipfs.id()
-    const config = await ipfs.config.getAll()
-    const peerId = await PeerId.createFromPrivKey(config.Identity.PrivKey)
-    const ipnsId = ipns.getLocalKey(peerId)
-    console.log("peerId 🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx")
-    console.log(ipnsId.toString())
-    console.log("peerId 🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx")
-    console.log(id.id)
-    console.log(peerId.toB58String())
-    console.log(peerId.privKey)
-    console.log("🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx")
+    const id = await ipfs.id();
+    const config = await ipfs.config.getAll();
+    const peerId = await PeerId.createFromPrivKey(config.Identity.PrivKey);
+    const ipnsId = ipns.getLocalKey(peerId);
+    console.log("peerId 🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx");
+    console.log(ipnsId.toString());
+    console.log("peerId 🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx");
+    console.log(id.id);
+    console.log(peerId.toB58String());
+    console.log(peerId.privKey);
+    console.log("🐝 🐝 🐝 🐝 🐝 🐝 🐝 🐝  xxx");
 
     const get = async (obj) => {
       const cid = new CID(obj);
