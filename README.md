@@ -1,7 +1,7 @@
-ipdid
+ipdid cli
 =====
 
-The IPDID ecosystem
+A Cli for The IPDID ecosystem
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/ipdid.svg)](https://npmjs.org/package/ipdid)
